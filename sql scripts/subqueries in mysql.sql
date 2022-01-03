@@ -76,5 +76,41 @@ SELECT * FROM bookorder WHERE booknumber NOT IN(
 	SELECT * from library lb where bo.booknumber = lb.booknumber
 );
 
+-- -- correlated subquery example
+create table payments(paymentId int primary key auto_increment,
+						customerId int,
+                        chequeNumber int,
+                        amount float);
+                        
+insert into payments(customerId,chequeNumber,amount) 
+			values (123,5670089,56000.00),
+					(123,5670095,16000.00),
+                    (125,5670098,10000.00),
+					(126,5670100,12000.00);
+--  find the customer who made maximum payment
+select customerId,chequeNumber,amount 
+from 
+		payments
+where 
+		amount = (select MAX(amount) from payments);
 
+-- find the customers whose payment is less than maximum payment
+select customerId,chequeNumber,amount 
+from 
+		payments
+where 
+		amount < (select MAX(amount) from payments);        
 
+-- find the customer payment details whose payment is greater than minimum payment
+select customerId,chequeNumber,amount 
+from 
+		payments
+where 
+		amount > (select MIN(amount) from payments);
+
+-- find the customer payment details whose payment is greater than average of all payments
+select customerId,chequeNumber,amount 
+from 
+		payments
+where 
+		amount > (select AVG(amount) from payments);

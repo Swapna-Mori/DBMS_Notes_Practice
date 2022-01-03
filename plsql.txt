@@ -1,0 +1,105 @@
+introduction
+==========
+If you want to reuse or save the sql queries on the database server and execute later we can use stored procedure
+
+CREATE PROCEDURE is the statement which is used to create the PROCEDURE
+
+Example
+=======
+The following sql statement 
+
+SELECT
+   M.NAME,C.NAME FROM MEMBERS M
+    ,COMMITTEE C
+   ORDER BY M.nAME;
+
+can be stored and execute later and reuse it using below syntax by creating procedure
+
+DELIMITER $$
+
+CREATE PROCEDURE `GETList1`()
+BEGIN
+SELECT
+   M.NAME,C.NAME FROM MEMBERS M
+    ,COMMITTEE C
+   ORDER BY M.nAME;
+END
+
+DELIMITER ;
+
+Advantages of procedures
+=====================
+We can reduce traffic by sending only one name(procedure name) to the server instead of multiple lengthy SQL statements.
+we make database more secure by adding more privileges and hiding table definitions
+
+disadvantages of procedures
+=======================
+troubleshooting is main disadvantage
+
+How to define variable in procedure?
+
+DECLARE statement is used to define the variables in Procedures/routine
+
+INT
+VARCHAR
+DATETIME  etc., any MYSQL  Data Types
+
+IN parameter
+============
+when you define IN parameter along with procedure or function we have to pass an argument/parameter to the stored procedure
+In value is Protected,means the value of IN parameter is unchanged after the end of the procedure.
+
+OUT parameter
+=============
+when you define OUT parameter alond with procedure of function it returns the values passed from the procedure(to return the value).
+
+INOUT parameter
+===============
+Parameter which is defined as INOUT  can pass the value and return the value to and from the procedure.
+
+Functions in MySQL
+================
+
+Function is a set of SQL statements that perform an operation and returns a single value.
+
+
+Example:
+========
+create function addition (a int,b int)
+returns int
+DETERMINISTIC
+ begin
+declare result int;
+set result =0;
+ set result = a + b;
+ return result;
+end  $$
+
+The function parameter may contain IN,OUT,INOUT parameters but you cannot use this keywords while declaring.
+Function returns only a single value mentioned in function header
+we can call function inside the procedures or other functions or sql statements
+
+CURSORS
+========
+pointers to the rows in the table
+
+Read-only
+=======
+you cannot update the data through cursor
+Non-Scrollable
+===========
+we can fetch only few rows in the determined order (means we cannot fetch the data in reverse order)
+Asensitive
+========
+    Asensitive
+==========
+        cursor points to actual data 
+    InSensitive
+============
+       cursor points to temporary copy of the data
+
+Steps to create the cursor in MySQL
+=============================
+1. Open cursor
+2. fetch cursor data into variables list
+3.close cursor
