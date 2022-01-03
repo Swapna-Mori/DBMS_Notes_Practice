@@ -1,0 +1,28 @@
+A query inside the another query is called as subquery
+
+A subquery may occur in A 
+               	- Select clause
+	- FROM clause
+	- Where clause
+Which statements can be nested 
+                  	- SELECT
+	- Insert
+	- Update
+	- Delete
+	- set
+	- do
+A Subquery is usually added with in WHERE Clause of another SQL statement
+
+Operators used for comparision 
+
+>
+<
+=
+
+Multirow comparision operators such as
+IN,
+ANY
+SOME
+or
+ALL
+

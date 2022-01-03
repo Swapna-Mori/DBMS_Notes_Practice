@@ -1,0 +1,218 @@
+Keys in DBMS
+===========
+
+A key is an attribute or set of attributes that help to uniquely identify a row/tuple in a relation/table.
+Keys are used to establish relationship/association between tables
+
+Why key are Required?
+===================
+for in defining various integrity constraints.
+
+Example:
+=======
+John Daniel  in IT department with empid 123
+John Daniel  in Accounts department with empid 1234
+Then to identify them uniquely we can use employeeid => Here Employeeid is a key
+
+Types of Keys
+===========
+
+1. Primary Key
+2. Candidate Key
+3. Super Key
+4. Foreign Key
+5. Composite Key
+6. ALternate Key
+7. Surrogate Key
+
+1. Primary Key(pk)
+===========
+One table can have only one primary key constraint.
+Primary key values cannot be null
+primary key values must be unique
+
+primary key = not null + value
+
+Example:
+========
+StudentId is a pk for retrieving the student data
+Employeeid is a primary key for identifying an employee from set of employees
+
+Table:
+=====
+create table department(deptid varchar(10) primary key,deptname varchar(30));
+
+2.Candidate Key
+============
+Primary key is a candidate key.
+Candidate Key are those Attributes that uniquely identify rows of the table.
+More than on attribute can be candidate keys.
+Candidate keys is super key with no repeated attributes
+
+Example:
+========
+Employeeid,EmployeeEmail,EmployeeMobileNO,EmployeeSSN etc
+
+3. Super Key
+==========
+set of all keys or key that uniquely identify other columns of that table
+The primary key is picked from super key.
+A superkey can have additional attributes that are not needed for unique identification.
+
+Example:
+========
+[Employeeid,EmployeeEmail],[EmployeeSSN ]etc
+
+4. Foreign Key
+===========
+Foreign Key is used to establish the relationships between two tables.
+Foreign Key helps to maintain data integrity.
+
+Example
+=======
+employee works for department
+
+empid => deptid
+
+Rules to declare the foriegn key
+=========================
+a foreign key in a table(secondary table) should be a primary key in another table (primary table)
+data which is there in primary table should be inserted  or saved in the secondary table for foreign key column
+
+Table:
+=====
+-- create a table with deptid as foreign key
+create table branch (branchid int primary key,
+	     branchname varchar(30),
+                        deptid varchar(10),
+                        constraint fk_branch_dept foreign key(deptid)
+                        references department(deptid));
+
+5. Composite Key
+==============
+set of two or more attributes that help to identify each row in a table uniquely.
+The attributes in the set may not be unique when considered separtely.
+
+Example
+=======
+Consider the table student
+
+s_name,s_branch,s_contact,s_age
+
+Table:
+=====
+create table student(s_name  varchar(30), s_branch  varchar(30),s_contact int,s_age int , constraint composite_key_example 
+				Primary key (s_name,s_contact));
+
+
+6. ALternate Key
+=============
+A table can contain mutiple candidate keys or primary keys
+if one of the candidate key is choosen as primary key then all remaining keys are called as alternate key
+
+Example
+=======
+Consider the table seller
+
+s_id,s_name,s_emailid,s_contactno,s_regid
+
+candidate keys = s_id,s_regid,s_emailid,s_contactno
+primary key = s_id
+alternate keys = s_regid,s_emailid,s_contactno
+composite key = s_name,s_emailid or s_name,s_contactno
+
+
+7. Surrogate Key
+=============
+an Artificial key which aims to uniquely idenfiy the each row
+These keys are unique because they are created when there is not natural primary key.
+
+Example
+=======
+Consider the table employee_shift
+
+empname,shiftstarttime,shiftendtime
+
+
+Table
+====
+create table employee_shift(emp_shift_id int auto_increment,empname  varchar(30),shiftstarttime TIME,shiftendtime TIME);
+
+Compound Key
+============
+A group of attributes is called a compoundkey like composite key
+
+any attribute from the compound key can be a foreign key but we cannot choose foreign as part of composite key.
+
+Unique key
+=========
+unique key is set of columns or column which uniquely identifies each record in a table.
+
+The difference between primary key and unique key is 
+          "unique key can have only one null value where as primary key cannot have any null values".
+
+
+
+DML
+====
+are used to insert or delete or update the data inside the table
+Insert
+=====
+insert is a DML statement in SQL to insert one row or multiple rows in to the specified  table
+
+delete
+======
+delete is a DML statement to remove one row or multiple rows from the specified table
+
+update
+=====
+
+difference between drop  vs truncate vs delete?
+=====================================
+drop & truncate are DDL statements
+delete is DML statement
+
+drop totally removes the table
+truncate removes the table and recreatesit
+delete only removes data from the table
+
+drop drops the autoincrement index
+truncate resets the autoincrement index
+delete never resets the autoincrement index
+
+
+
+DQL
+====
+select statement is used to view the data from the table
+
+'course', 'CREATE TABLE `course` (\n  `courseid` int NOT NULL,\n  `coursename` varchar(20) NOT NULL,\n  `courseduration` int DEFAULT NULL,\n  UNIQUE KEY `courseid` (`courseid`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+
+15:47:34	select * from department LIMIT 0, 1000	4 row(s) returned	0.140 sec / 0.000 sec
+
+15:48:00	delete from department	4 row(s) affected	0.265 sec
+
+15:50:05	insert into department values('D002','Accounts'),          ('D003','Admin'),                               ('D004','IT')	3 row(s) affected Records: 3  Duplicates: 0  Warnings: 0	0.093 sec
+
+15:52:24	delete from department where deptid = 'D003'	1 row(s) affected	0.125 sec
+
+
+AND
+========================
+condition1 | condition2 | Result
+========================
+T 	           T                     T
+T 	          F                     F
+F	           T                    F
+F	          F                     F
+
+
+OR
+========================
+condition1 | condition2 | Result
+========================
+T 	           T                     T
+T 	          F                    T
+F	           T                   T
+F	          F                     F

@@ -219,7 +219,7 @@ Year [(2|4)]  => 2 digit or 4 digit => by default 4 digits are stored
 DATE => 'yyyy-mm-dd' => 1000 -01-01 to 9999-12-31
 TIME => 'HH:MM:SS'
 DATETIME => 'yyyy-mm-dd HH:MM:SS'
-TIMESTAMP => 'YYYY-MM-DD HH:MM:SS'
+TIMESTAMP => 'YYYY-MM-DD HH:MM:SS' => time + UTC
 
 Constraints in MySQL
 =================
@@ -238,7 +238,9 @@ studentage cannot be > 120 => column level constraint
 Two Types of Constraints
 ====================
 Column level Constraints => constraints that limits to a particular column to insert particular data
+example : not null,unique,check,default etc,
 Table level Constraints => constraints that are applied on entire table that limits the data insertion on whole table
+example: primary key,foriegn key
 
 
 List of Constraints in MySQL
